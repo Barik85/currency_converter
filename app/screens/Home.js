@@ -92,4 +92,4 @@ export class Home extends Component {
   }
 }
 
-export default connect()(Home)
+export default connect()(Home);
