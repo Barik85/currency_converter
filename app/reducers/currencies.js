@@ -6,7 +6,7 @@ import {
 const INITIAL_STATE = {
   baseCurrency: 'UAH',
   quoteCurrency: 'USD',
-  amount: 100,
+  amount: 1,
   conversions: {},
 };
 

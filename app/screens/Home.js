@@ -10,9 +10,9 @@ import { LastConverted } from '../components/Text';
 import { Header } from '../components/Header';
 import { swapCurrency, changeCurrencyAmount } from '../actions/currencies';
 
-const TEMP_BASE_CURRENCY = 'USD';
-const TEMP_QUOTE_CURRENCE = 'UAH';
-const TEMP_BASE_PRICE = '29';
+// const TEMP_BASE_CURRENCY = 'USD';
+// const TEMP_QUOTE_CURRENCE = 'UAH';
+// const TEMP_BASE_PRICE = '29';
 const TEMP_QUOTE_PRICE = '28.1';
 const TEMP_CONVERSION_RATE = 28.1;
 const TEMP_DATE = new Date();
@@ -24,6 +24,9 @@ export class Home extends Component {
       navigate: PropTypes.func,
     }).isRequired,
     dispatch: PropTypes.func.isRequired,
+    amount: PropTypes.number.isRequired,
+    baseCurrency: PropTypes.string.isRequired,
+    quoteCurrency: PropTypes.string.isRequired,
   }
 
   handlePressBase = () => {
@@ -57,6 +60,8 @@ export class Home extends Component {
   }
 
   render() {
+    const { amount, baseCurrency, quoteCurrency } = this.props;
+
     return (
       <Container>
         <StatusBar
@@ -67,21 +72,21 @@ export class Home extends Component {
         <Logo />
         <KeyboardAvoidingView behavior="padding">
           <InputWithButton
-            buttonText={TEMP_BASE_CURRENCY}
+            buttonText={baseCurrency}
             onPress={this.handlePressBase}
-            defaultValue={TEMP_BASE_PRICE}
+            defaultValue={amount.toString()}
             keyboardType="numeric"
             onChangeText={this.handleChangeText}
           />
           <InputWithButton
-            buttonText={TEMP_QUOTE_CURRENCE}
+            buttonText={quoteCurrency}
             onPress={this.handlePressQoute}
             editable={false}
             defaultValue={TEMP_QUOTE_PRICE}
           />
           <LastConverted
-            base={TEMP_BASE_CURRENCY}
-            quote={TEMP_QUOTE_CURRENCE}
+            base={baseCurrency}
+            quote={quoteCurrency}
             conversionRate={TEMP_CONVERSION_RATE}
             date={TEMP_DATE}
           />
@@ -92,4 +97,10 @@ export class Home extends Component {
   }
 }
 
-export default connect()(Home);
+const mSTP = state => ({
+  amount: state.currencies.amount,
+  baseCurrency: state.currencies.baseCurrency,
+  quoteCurrency: state.currencies.quoteCurrency,
+});
+
+export default connect(mSTP)(Home);

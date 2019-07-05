@@ -1,6 +1,6 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { StatusBar } from 'react-native';
-import Home from '../screens/Home';
+import HomeScreen from '../screens/Home';
 import CurrencyList from '../screens/CurrencyList';
 import Options from '../screens/Options';
 import Themes from '../screens/Themes';
@@ -8,7 +8,7 @@ import Themes from '../screens/Themes';
 const HomeStack = createStackNavigator(
   {
     Home: {
-      screen: Home,
+      screen: HomeScreen,
       navigationOptions: {
         header: () => null,
       },
