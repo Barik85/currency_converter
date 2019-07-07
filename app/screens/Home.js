@@ -10,9 +10,6 @@ import { LastConverted } from '../components/Text';
 import { Header } from '../components/Header';
 import { swapCurrency, changeCurrencyAmount } from '../actions/currencies';
 
-// const TEMP_BASE_CURRENCY = 'USD';
-// const TEMP_QUOTE_CURRENCE = 'UAH';
-// const TEMP_BASE_PRICE = '29';
 const TEMP_QUOTE_PRICE = '28.1';
 const TEMP_CONVERSION_RATE = 28.1;
 const TEMP_DATE = new Date();
@@ -32,13 +29,19 @@ export class Home extends Component {
   handlePressBase = () => {
     const { navigation } = this.props;
 
-    navigation.navigate('CurrencyList', { title: 'Base currency' });
+    navigation.navigate('CurrencyList', {
+      title: 'Base currency',
+      type: 'base',
+    });
   }
 
   handlePressQoute = () => {
     const { navigation } = this.props;
 
-    navigation.navigate('CurrencyList', { title: 'Quote currency' });
+    navigation.navigate('CurrencyList', {
+      title: 'Quote currency',
+      type: 'quote',
+    });
   }
 
   handleChangeText = (text) => {
