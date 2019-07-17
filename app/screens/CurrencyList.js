@@ -39,7 +39,7 @@ export class CurrencyList extends Component {
   }
 
   render() {
-    const { navigation, baseCurrency, quoteCurrency } = this.props;
+    const { navigation, baseCurrency, quoteCurrency, themeColor } = this.props;
     const { type } = navigation.state && navigation.state.params;
 
     let comparrisson;
@@ -58,6 +58,7 @@ export class CurrencyList extends Component {
               onPress={() => this.handleItemPress(item)}
               visible
               checkmark
+              iconBackground={themeColor}
             />
           )}
           keyExtractor={item => item}
@@ -71,6 +72,7 @@ export class CurrencyList extends Component {
 const mSTP = state => ({
   baseCurrency: state.currencies.baseCurrency,
   quoteCurrency: state.currencies.quoteCurrency,
+  themeColor: state.themes.primaryColor,
 });
 
 export default connect(mSTP)(CurrencyList);
