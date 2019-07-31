@@ -21,6 +21,7 @@ export class CurrencyList extends Component {
     dispatch: PropTypes.func.isRequired,
     baseCurrency: PropTypes.string,
     quoteCurrency: PropTypes.string,
+    themeColor: PropTypes.string.isRequired,
   }
 
   handleItemPress = (currency) => {

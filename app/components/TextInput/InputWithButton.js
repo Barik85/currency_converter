@@ -7,11 +7,17 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import color from 'color';
+import { connect } from 'react-redux';
 
 import styles from './styles';
 
 const InputWithButton = (props) => {
-  const { buttonText, onPress, editable = true } = props;
+  const {
+    buttonText,
+    onPress,
+    editable = true,
+    primaryColor
+  } = props;
   const containerStyles = [styles.container];
 
   if (editable === false) {
@@ -27,7 +33,7 @@ const InputWithButton = (props) => {
         onPress={onPress}
         underlayColor={underlayColor}
       >
-        <Text style={styles.button_text}>{buttonText}</Text>
+        <Text style={[styles.button_text, { color: primaryColor }]}>{buttonText}</Text>
       </TouchableHighlight>
       <View style={styles.border} />
       <TextInput
@@ -43,6 +49,11 @@ InputWithButton.propTypes = {
   buttonText: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
   editable: PropTypes.bool,
+  primaryColor: PropTypes.string,
 };
 
-export default InputWithButton;
+const mSTP = state => ({
+  primaryColor: state.themes.primaryColor,
+});
+
+export default connect(mSTP)(InputWithButton);

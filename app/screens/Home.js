@@ -104,6 +104,7 @@ const mSTP = state => ({
   amount: state.currencies.amount,
   baseCurrency: state.currencies.baseCurrency,
   quoteCurrency: state.currencies.quoteCurrency,
+  themeColor: state.themes.primaryColor,
 });
 
 export default connect(mSTP)(Home);
