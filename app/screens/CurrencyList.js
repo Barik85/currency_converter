@@ -40,7 +40,12 @@ export class CurrencyList extends Component {
   }
 
   render() {
-    const { navigation, baseCurrency, quoteCurrency, themeColor } = this.props;
+    const {
+      navigation,
+      baseCurrency,
+      quoteCurrency,
+      themeColor,
+    } = this.props;
     const { type } = navigation.state && navigation.state.params;
 
     let comparrisson;

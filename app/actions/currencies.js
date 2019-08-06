@@ -1,7 +1,10 @@
 import {
   SWAP_CURRENCY, SET_BASE_CURRENCY,
   SET_QUOTE_CURRENCY, CHANGE_CUR_AMOUNT,
+  GET_INITIAL_CONVERSION,
 } from '../redux/actionTypes';
+
+// https://api.ratesapi.io/api/latest?base=USD
 
 export const swapCurrency = () => ({
   type: SWAP_CURRENCY,
@@ -20,4 +23,8 @@ export const setQuoteCurrency = cur => ({
 export const changeCurrencyAmount = amount => ({
   type: CHANGE_CUR_AMOUNT,
   payload: parseFloat(amount),
+});
+
+export const getInitialConversion = () =>({
+  type: GET_INITIAL_CONVERSION,
 });

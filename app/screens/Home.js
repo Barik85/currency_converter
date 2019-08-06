@@ -8,7 +8,7 @@ import { InputWithButton } from '../components/TextInput';
 import { Button } from '../components/Button';
 import { LastConverted } from '../components/Text';
 import { Header } from '../components/Header';
-import { swapCurrency, changeCurrencyAmount } from '../actions/currencies';
+import { swapCurrency, changeCurrencyAmount, getInitialConversion } from '../actions/currencies';
 
 const TEMP_QUOTE_PRICE = '28.1';
 const TEMP_CONVERSION_RATE = 28.1;
@@ -24,6 +24,12 @@ export class Home extends Component {
     amount: PropTypes.number.isRequired,
     baseCurrency: PropTypes.string.isRequired,
     quoteCurrency: PropTypes.string.isRequired,
+    // themeColor: PropTypes.string,
+  }
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(getInitialConversion());
   }
 
   handlePressBase = () => {
@@ -63,13 +69,16 @@ export class Home extends Component {
   }
 
   render() {
-    const { amount, baseCurrency, quoteCurrency } = this.props;
+    const {
+      amount, baseCurrency, quoteCurrency,
+    } = this.props;
 
     return (
       <Container>
         <StatusBar
-          translucent
+          // translucent
           barStyle="dark-content"
+          backgroundColor="#000"
         />
         <Header onPress={this.handleOptionsPress} />
         <Logo />

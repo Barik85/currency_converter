@@ -4,7 +4,7 @@ import {
 } from '../redux/actionTypes';
 
 const INITIAL_STATE = {
-  baseCurrency: 'UAH',
+  baseCurrency: 'EUR',
   quoteCurrency: 'USD',
   amount: 1,
   conversions: {},
