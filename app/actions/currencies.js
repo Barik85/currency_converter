@@ -4,8 +4,6 @@ import {
   GET_INITIAL_CONVERSION,
 } from '../redux/actionTypes';
 
-// https://api.ratesapi.io/api/latest?base=USD
-
 export const swapCurrency = () => ({
   type: SWAP_CURRENCY,
 });
