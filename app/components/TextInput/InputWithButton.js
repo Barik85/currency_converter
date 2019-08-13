@@ -16,7 +16,7 @@ const InputWithButton = (props) => {
     buttonText,
     onPress,
     editable = true,
-    primaryColor
+    primaryColor,
   } = props;
   const containerStyles = [styles.container];
 

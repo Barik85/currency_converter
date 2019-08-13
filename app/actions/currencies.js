@@ -23,6 +23,6 @@ export const changeCurrencyAmount = amount => ({
   payload: parseFloat(amount),
 });
 
-export const getInitialConversion = () =>({
+export const getInitialConversion = () => ({
   type: GET_INITIAL_CONVERSION,
 });

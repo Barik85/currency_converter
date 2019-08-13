@@ -17,9 +17,11 @@ function* fetchConversion(action) {
 
     const res = yield call(requestRates, base);
 
-    const result = res && res.data;
+    const result = yield res && res.data;
+
+    console.log('result: ', result);
     if (result && result.error) {
-      put({ type: CONVERSION_ERROR, payload: result.error })
+      put({ type: CONVERSION_ERROR, payload: result.error });
     } else {
       put({ type: CONVERSION_RESULT, payload: result });
     }

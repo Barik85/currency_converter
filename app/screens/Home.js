@@ -10,9 +10,7 @@ import { LastConverted } from '../components/Text';
 import { Header } from '../components/Header';
 import { swapCurrency, changeCurrencyAmount, getInitialConversion } from '../actions/currencies';
 
-const TEMP_QUOTE_PRICE = '28.1';
 const TEMP_CONVERSION_RATE = 28.1;
-const TEMP_DATE = new Date();
 
 export class Home extends Component {
   static propTypes = {
@@ -24,7 +22,9 @@ export class Home extends Component {
     amount: PropTypes.number.isRequired,
     baseCurrency: PropTypes.string.isRequired,
     quoteCurrency: PropTypes.string.isRequired,
-    // themeColor: PropTypes.string,
+    isFetching: PropTypes.bool.isRequired,
+    conversionRate: PropTypes.number.isRequired,
+    date: PropTypes.string.isRequired,
   }
 
   componentDidMount() {
@@ -71,12 +71,20 @@ export class Home extends Component {
   render() {
     const {
       amount, baseCurrency, quoteCurrency,
+      isFetching, conversionRate, date,
     } = this.props;
+
+    let quotePrice = '...';
+    debugger; // eslint-disable-line
+
+    if (!isFetching) {
+      quotePrice = (amount * conversionRate).toFixed(2);
+    }
 
     return (
       <Container>
         <StatusBar
-          // translucent
+          translucent
           barStyle="dark-content"
           backgroundColor="#000"
         />
@@ -94,13 +102,13 @@ export class Home extends Component {
             buttonText={quoteCurrency}
             onPress={this.handlePressQoute}
             editable={false}
-            defaultValue={TEMP_QUOTE_PRICE}
+            value={quotePrice}
           />
           <LastConverted
             base={baseCurrency}
             quote={quoteCurrency}
             conversionRate={TEMP_CONVERSION_RATE}
-            date={TEMP_DATE}
+            date={new Date(date)}
           />
           <Button text="Reverce currencies" onPress={this.handleSwapCurrency} />
         </KeyboardAvoidingView>
@@ -109,11 +117,22 @@ export class Home extends Component {
   }
 }
 
-const mSTP = state => ({
-  amount: state.currencies.amount,
-  baseCurrency: state.currencies.baseCurrency,
-  quoteCurrency: state.currencies.quoteCurrency,
-  themeColor: state.themes.primaryColor,
-});
+const mSTP = (state) => {
+  const { baseCurrency, quoteCurrency, amount } = state.currencies;
+
+  const conversionSelector = state.currencies.conversions[baseCurrency] || {};
+  const rates = conversionSelector.rates || {};
+  const date = conversionSelector.date || '...';
+
+  return {
+    amount,
+    baseCurrency,
+    quoteCurrency,
+    themeColor: state.themes.primaryColor,
+    conversionRate: rates[quoteCurrency] || 0,
+    isFetching: !!conversionSelector.isFetching,
+    date,
+  };
+};
 
 export default connect(mSTP)(Home);
