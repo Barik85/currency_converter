@@ -19,11 +19,10 @@ function* fetchConversion(action) {
 
     const result = yield res && res.data;
 
-    console.log('result: ', result);
     if (result && result.error) {
-      put({ type: CONVERSION_ERROR, payload: result.error });
+      yield put({ type: CONVERSION_ERROR, payload: result.error });
     } else {
-      put({ type: CONVERSION_RESULT, payload: result });
+      yield put({ type: CONVERSION_RESULT, payload: result });
     }
   } catch (error) {
     console.log('saga error', error);

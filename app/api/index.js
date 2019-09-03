@@ -1,9 +1,11 @@
 import axios from 'axios';
 
-export function* fetchConversion(action) {
-  console.log('Fetch conversion', action);
-  yield;
-}
+export const requestHistoricalRates = (date, base) => (
+  base
+    ? axios.get(`https://api.ratesapi.io/api/${date}?base=${base}`)
+    : axios.get(`https://api.ratesapi.io/api/${date}`)
+);
+
 
 export const requestRates = base => (
   base

@@ -9,9 +9,6 @@ import ListItem from '../components/List/ListItem';
 import Separator from '../components/List/Separator';
 import { setBaseCurrency, setQuoteCurrency } from '../actions/currencies';
 
-const dataCurrensy = require('../../data/currency_list');
-
-const currencyCodes = Object.keys(dataCurrensy);
 
 export class CurrencyList extends Component {
   static propTypes = {
@@ -22,6 +19,7 @@ export class CurrencyList extends Component {
     baseCurrency: PropTypes.string,
     quoteCurrency: PropTypes.string,
     themeColor: PropTypes.string.isRequired,
+    currencyCodes: PropTypes.arrayOf(PropTypes.string),
   }
 
   handleItemPress = (currency) => {
@@ -45,6 +43,7 @@ export class CurrencyList extends Component {
       baseCurrency,
       quoteCurrency,
       themeColor,
+      currencyCodes,
     } = this.props;
     const { type } = navigation.state && navigation.state.params;
 
@@ -75,10 +74,18 @@ export class CurrencyList extends Component {
   }
 }
 
-const mSTP = state => ({
-  baseCurrency: state.currencies.baseCurrency,
-  quoteCurrency: state.currencies.quoteCurrency,
-  themeColor: state.themes.primaryColor,
-});
+const mSTP = (state) => {
+  const firstCurrency = state.currencies.conversions[Object.keys(state.currencies.conversions)[0]];
+  const currencyCodes = (firstCurrency && firstCurrency.rates)
+    ? [firstCurrency.base, ...Object.keys(firstCurrency.rates)]
+    : [];
+
+  return {
+    baseCurrency: state.currencies.baseCurrency,
+    quoteCurrency: state.currencies.quoteCurrency,
+    themeColor: state.themes.primaryColor,
+    currencyCodes,
+  };
+};
 
 export default connect(mSTP)(CurrencyList);

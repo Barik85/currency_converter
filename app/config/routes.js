@@ -3,7 +3,7 @@ import { StatusBar } from 'react-native';
 import HomeScreen from '../screens/Home';
 import CurrencyListScreen from '../screens/CurrencyList';
 import Options from '../screens/Options';
-import Themes from '../screens/Themes';
+import ThemesScreen from '../screens/Themes';
 
 const HomeStack = createStackNavigator(
   {
@@ -22,7 +22,7 @@ const HomeStack = createStackNavigator(
     },
 
     Themes: {
-      screen: Themes,
+      screen: ThemesScreen,
       navigationOptions: {
         headerTitle: 'Themes',
       },

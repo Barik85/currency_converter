@@ -8,6 +8,7 @@ const INITIAL_STATE = {
   quoteCurrency: 'USD',
   amount: 1,
   conversions: {},
+  error: null,
 };
 
 const setConversions = (state, action) => {
@@ -57,17 +58,6 @@ const currencyReducer = (state = INITIAL_STATE, action) => {
       };
 
     case CONVERSION_RESULT:
-      console.log('reducer:', {
-        ...state,
-        baseCurrency: action.payload.base,
-        conversions: {
-          ...state.conversions,
-          [action.payload.base]: {
-            isFetching: false,
-            ...action.payload,
-          },
-        },
-      });
       return {
         ...state,
         baseCurrency: action.payload.base,
