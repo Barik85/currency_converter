@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ScrollView, StatusBar, Platform, Linking } from 'react-native';
+import {
+  ScrollView,
+  StatusBar,
+  Platform,
+  Linking,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import ListItem from '../components/List/ListItem';
 import Separator from '../components/List/Separator';
@@ -25,7 +30,6 @@ class Options extends Component {
   }
 
   handleSitePress = () => {
-    console.log('Site press');
     const { alertWithType } = this.props;
 
     Linking.openURL('http://fixer.io')

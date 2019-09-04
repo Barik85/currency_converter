@@ -25,7 +25,7 @@ function* fetchConversion(action) {
       yield put({ type: CONVERSION_RESULT, payload: result });
     }
   } catch (error) {
-    console.log('saga error', error);
+    yield put({ type: CONVERSION_ERROR, payload: error });
   }
 }
 

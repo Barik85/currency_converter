@@ -9,6 +9,7 @@ import { Button } from '../components/Button';
 import { LastConverted } from '../components/Text';
 import { Header } from '../components/Header';
 import { swapCurrency, changeCurrencyAmount, getInitialConversion } from '../actions/currencies';
+import { AletrContext } from '../components/Alert/AlertProvider';
 
 const TEMP_CONVERSION_RATE = 28.1;
 
@@ -19,17 +20,34 @@ export class Home extends Component {
       navigate: PropTypes.func,
     }).isRequired,
     dispatch: PropTypes.func.isRequired,
-    amount: PropTypes.number.isRequired,
+    amount: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]).isRequired,
     baseCurrency: PropTypes.string.isRequired,
     quoteCurrency: PropTypes.string.isRequired,
     isFetching: PropTypes.bool.isRequired,
     conversionRate: PropTypes.number.isRequired,
     date: PropTypes.string.isRequired,
+    currencyError: PropTypes.object,
+    alertWithType: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    currencyError: null,
   }
 
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(getInitialConversion());
+  }
+
+  componentDidUpdate(prevProps) {
+    const prevError = prevProps.currencyError;
+    const { currencyError, alertWithType } = this.props;
+    if (currencyError && currencyError !== prevError) {
+      alertWithType('error', 'Error', currencyError);
+    }
   }
 
   handlePressBase = () => {
@@ -75,7 +93,6 @@ export class Home extends Component {
     } = this.props;
 
     let quotePrice = '...';
-    debugger; // eslint-disable-line
 
     if (!isFetching) {
       quotePrice = (amount * conversionRate).toFixed(2);
@@ -118,7 +135,9 @@ export class Home extends Component {
 }
 
 const mSTP = (state) => {
-  const { baseCurrency, quoteCurrency, amount } = state.currencies;
+  const {
+    baseCurrency, quoteCurrency, amount, error,
+  } = state.currencies;
 
   const conversionSelector = state.currencies.conversions[baseCurrency] || {};
   const rates = conversionSelector.rates || {};
@@ -132,7 +151,14 @@ const mSTP = (state) => {
     conversionRate: rates[quoteCurrency] || 0,
     isFetching: !!conversionSelector.isFetching,
     date,
+    currencyError: error,
   };
 };
 
-export default connect(mSTP)(Home);
+export const HomeWithAlert = props => (
+  <AletrContext.Consumer>
+    {context => <Home {...props} {...context} />}
+  </AletrContext.Consumer>
+);
+
+export default connect(mSTP)(HomeWithAlert);

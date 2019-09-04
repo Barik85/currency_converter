@@ -1,6 +1,7 @@
 import {
   SWAP_CURRENCY, SET_BASE_CURRENCY, CHANGE_CUR_AMOUNT,
   SET_QUOTE_CURRENCY, CONVERSION_RESULT, GET_INITIAL_CONVERSION,
+  CONVERSION_ERROR,
 } from '../redux/actionTypes';
 
 const INITIAL_STATE = {
@@ -74,6 +75,12 @@ const currencyReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         conversions: setConversions(state, { payload: state.baseCurrency }),
+      };
+
+    case CONVERSION_ERROR:
+      return {
+        ...state,
+        error: action.payload,
       };
 
     default:

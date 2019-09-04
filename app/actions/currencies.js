@@ -20,7 +20,7 @@ export const setQuoteCurrency = cur => ({
 
 export const changeCurrencyAmount = amount => ({
   type: CHANGE_CUR_AMOUNT,
-  payload: parseFloat(amount),
+  payload: parseFloat(amount) || '',
 });
 
 export const getInitialConversion = () => ({
