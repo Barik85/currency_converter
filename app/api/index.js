@@ -9,6 +9,6 @@ export const requestHistoricalRates = (date, base) => (
 
 export const requestRates = base => (
   base
-    ? axios.get(`https://api.ratesapi.io/api/latest?base=${base}ii`)
+    ? axios.get(`https://api.ratesapi.io/api/latest?base=${base}`)
     : axios.get('https://api.ratesapi.io/api/latest')
 );

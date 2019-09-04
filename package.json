@@ -36,5 +36,10 @@
     "eslint-plugin-react": "^7.11.1",
     "prettier": "^1.15.2",
     "prettier-eslint": "^8.8.2"
+  },
+  "expo": {
+    "sdkVersion": "^31.0.2",
+    "orientation": "portrait",
+    "privacy": "public"
   }
 }
